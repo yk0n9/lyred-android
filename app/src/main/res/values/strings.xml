@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">lyred</string>
+    <string name="select">选择MIDI文件</string>
+    <string name="open">打开</string>
+    <string name="file">你选择的是:</string>
+    <string name="now_speed">1.0</string>
+    <string name="the_speed">速度</string>
+    <string name="convert">从MIDI转换</string>
+    <string name="play">播放</string>
+    <string name="stop">停止</string>
+    <string name="state">已停止</string>
+    <string name="save">保存坐标</string>
+    <string name="show">显示坐标</string>
+    <string name="x1">+1</string>
+    <string name="x2">+2</string>
+    <string name="x3">+3</string>
+    <string name="x4">+4</string>
+    <string name="x5">+5</string>
+    <string name="x6">+6</string>
+    <string name="x7">+7</string>
+    <string name="y2">1</string>
+    <string name="y3">-1</string>
+</resources>
