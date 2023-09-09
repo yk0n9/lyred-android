@@ -43,11 +43,10 @@ class Midi {
     fun play() {
         Control.playing = true
         thread {
-            val events = this.events
             var startTime = System.currentTimeMillis()
             var inputTime = 0.0
 
-            for (e in events) {
+            for (e in this.events) {
                 if (Control.pause) {
                     while (true) {
                         if (!Control.pause) {

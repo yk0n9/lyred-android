@@ -1,7 +1,6 @@
 package cc.ykong.lyred
 
 import android.os.Environment
-import com.lzf.easyfloat.EasyFloat
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -46,143 +45,9 @@ const val Y = 1
 fun readLocation() {
     val sd = Environment.getExternalStorageDirectory()
     val jsonFile = File(sd, "mapping.json")
-    if (sd.exists()) {
-        val jsonString = jsonFile.readText()
-        val mapping = Json.decodeFromString<MutableMap<Char, Pos>>(jsonString)
-        Map.mapping = mapping
-
-        for (tag in Control.TAG) {
-            when (tag.value) {
-                "x1" -> {
-                    Map.mapping['Q']?.x?.let { EasyFloat.updateFloat(tag.value, x = it) }
-                    Map.mapping['Q']?.y?.let { EasyFloat.updateFloat(tag.value, y = it) }
-                }
-
-                "x2" -> {
-                    Map.mapping['W']?.x?.let { EasyFloat.updateFloat(tag.value, x = it) }
-                    Map.mapping['W']?.y?.let { EasyFloat.updateFloat(tag.value, y = it) }
-                }
-
-                "x3" -> {
-                    Map.mapping['E']?.x?.let { EasyFloat.updateFloat(tag.value, x = it) }
-                    Map.mapping['E']?.y?.let { EasyFloat.updateFloat(tag.value, y = it) }
-                }
-
-                "x4" -> {
-                    Map.mapping['R']?.x?.let { EasyFloat.updateFloat(tag.value, x = it) }
-                    Map.mapping['R']?.y?.let { EasyFloat.updateFloat(tag.value, y = it) }
-                }
-
-                "x5" -> {
-                    Map.mapping['T']?.x?.let { EasyFloat.updateFloat(tag.value, x = it) }
-                    Map.mapping['T']?.y?.let { EasyFloat.updateFloat(tag.value, y = it) }
-                }
-
-                "x6" -> {
-                    Map.mapping['Y']?.x?.let { EasyFloat.updateFloat(tag.value, x = it) }
-                    Map.mapping['Y']?.y?.let { EasyFloat.updateFloat(tag.value, y = it) }
-                }
-
-                "x7" -> {
-                    Map.mapping['U']?.x?.let { EasyFloat.updateFloat(tag.value, x = it) }
-                    Map.mapping['U']?.y?.let { EasyFloat.updateFloat(tag.value, y = it) }
-                }
-
-                "y2" -> {
-                    Map.mapping['A']?.x?.let { EasyFloat.updateFloat(tag.value, x = it) }
-                    Map.mapping['A']?.y?.let { EasyFloat.updateFloat(tag.value, y = it) }
-                }
-
-                "y3" -> {
-                    Map.mapping['Z']?.x?.let { EasyFloat.updateFloat(tag.value, x = it) }
-                    Map.mapping['Z']?.y?.let { EasyFloat.updateFloat(tag.value, y = it) }
-                }
-
-                else -> {}
-            }
-        }
-    }
 }
 
 fun saveLocation() {
-    for (tag in Control.TAG) {
-        val pos = IntArray(2)
-        EasyFloat.getFloatView(tag.value)?.getLocationOnScreen(pos)
-        val x = pos[X]
-        val y = pos[Y]
-        when (tag.value) {
-            "x1" -> {
-                Map.mapping['Q']?.y = y
-                Map.mapping['W']?.y = y
-                Map.mapping['E']?.y = y
-                Map.mapping['R']?.y = y
-                Map.mapping['T']?.y = y
-                Map.mapping['Y']?.y = y
-                Map.mapping['U']?.y = y
-                Map.mapping['Q']?.x = x
-                Map.mapping['A']?.x = x
-                Map.mapping['Z']?.x = x
-            }
-
-            "x2" -> {
-                Map.mapping['W']?.x = x
-                Map.mapping['S']?.x = x
-                Map.mapping['X']?.x = x
-            }
-
-            "x3" -> {
-                Map.mapping['E']?.x = x
-                Map.mapping['D']?.x = x
-                Map.mapping['C']?.x = x
-            }
-
-            "x4" -> {
-                Map.mapping['R']?.x = x
-                Map.mapping['F']?.x = x
-                Map.mapping['V']?.x = x
-            }
-
-            "x5" -> {
-                Map.mapping['T']?.x = x
-                Map.mapping['G']?.x = x
-                Map.mapping['B']?.x = x
-            }
-
-            "x6" -> {
-                Map.mapping['Y']?.x = x
-                Map.mapping['H']?.x = x
-                Map.mapping['N']?.x = x
-            }
-
-            "x7" -> {
-                Map.mapping['U']?.x = x
-                Map.mapping['J']?.x = x
-                Map.mapping['M']?.x = x
-            }
-
-            "y2" -> {
-                Map.mapping['A']?.y = y
-                Map.mapping['S']?.y = y
-                Map.mapping['D']?.y = y
-                Map.mapping['F']?.y = y
-                Map.mapping['G']?.y = y
-                Map.mapping['H']?.y = y
-                Map.mapping['J']?.y = y
-            }
-
-            "y3" -> {
-                Map.mapping['Z']?.y = y
-                Map.mapping['X']?.y = y
-                Map.mapping['C']?.y = y
-                Map.mapping['V']?.y = y
-                Map.mapping['B']?.y = y
-                Map.mapping['N']?.y = y
-                Map.mapping['M']?.y = y
-            }
-
-            else -> {}
-        }
-    }
     val jsonString = Json.encodeToString(Map.mapping)
     val sd = Environment.getExternalStorageDirectory()
     val file = File(sd, "mapping.json")
