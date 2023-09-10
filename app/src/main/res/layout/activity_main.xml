@@ -71,5 +71,12 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" android:textSize="24sp"
             app:layout_constraintHorizontal_bias="0.0" app:layout_constraintVertical_bias="0.047"/>
+    <CheckBox
+            android:text="@string/open_float"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/open_float"
+            app:layout_constraintTop_toBottomOf="@+id/speed" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="468dp" app:layout_constraintHorizontal_bias="0.05"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

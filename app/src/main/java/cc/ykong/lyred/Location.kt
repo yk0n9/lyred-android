@@ -44,10 +44,10 @@ object Map {
         'U' to zero(),
     )
 
-    fun click(x: Float, y: Float) {
+    fun click(pos: Pos) {
         val path = Path()
-        path.moveTo(x, y)
-        path.lineTo(x, y)
+        path.moveTo(pos.x, pos.y)
+        path.lineTo(pos.x, pos.y)
         val builder = GestureDescription.Builder()
         builder.addStroke(GestureDescription.StrokeDescription(path, 0, 1))
         Clicker.Click.clicker.dispatchGesture(builder.build(), null, null)
@@ -55,13 +55,13 @@ object Map {
 }
 
 @Serializable
-data class Pos(var x: Int, var y: Int)
+data class Pos(var x: Float, var y: Float)
 
-fun zero() = Pos(0, 0)
+fun zero() = Pos(0f, 0f)
 
 fun setMap(c: Char, event: MotionEvent) {
-    Map.mapping[c]?.x = event.rawX.toInt()
-    Map.mapping[c]?.y = event.rawY.toInt()
+    Map.mapping[c]?.x = event.rawX
+    Map.mapping[c]?.y = event.rawY
 }
 
 class Clicker : AccessibilityService() {
@@ -101,48 +101,48 @@ fun saveLocation() {
 
 fun press(key: Int) {
     when (key) {
-        24 -> Map.mapping['Z']
-        26 -> Map.mapping['X']
-        28 -> Map.mapping['C']
-        29 -> Map.mapping['V']
-        31 -> Map.mapping['B']
-        33 -> Map.mapping['N']
-        35 -> Map.mapping['M']
-        36 -> Map.mapping['Z']
-        38 -> Map.mapping['X']
-        40 -> Map.mapping['C']
-        41 -> Map.mapping['V']
-        43 -> Map.mapping['B']
-        45 -> Map.mapping['N']
-        47 -> Map.mapping['M']
-        48 -> Map.mapping['Z']
-        50 -> Map.mapping['X']
-        52 -> Map.mapping['C']
-        53 -> Map.mapping['V']
-        55 -> Map.mapping['B']
-        57 -> Map.mapping['N']
-        59 -> Map.mapping['M']
-        60 -> Map.mapping['A']
-        62 -> Map.mapping['S']
-        64 -> Map.mapping['D']
-        65 -> Map.mapping['F']
-        67 -> Map.mapping['G']
-        69 -> Map.mapping['H']
-        71 -> Map.mapping['J']
-        72 -> Map.mapping['Q']
-        74 -> Map.mapping['W']
-        76 -> Map.mapping['E']
-        77 -> Map.mapping['R']
-        79 -> Map.mapping['T']
-        81 -> Map.mapping['Y']
-        83 -> Map.mapping['U']
-        84 -> Map.mapping['Q']
-        86 -> Map.mapping['W']
-        88 -> Map.mapping['E']
-        89 -> Map.mapping['R']
-        91 -> Map.mapping['T']
-        93 -> Map.mapping['Y']
-        95 -> Map.mapping['U']
+        24 -> Map.mapping['Z']?.let { Map.click(it) }
+        26 -> Map.mapping['X']?.let { Map.click(it) }
+        28 -> Map.mapping['C']?.let { Map.click(it) }
+        29 -> Map.mapping['V']?.let { Map.click(it) }
+        31 -> Map.mapping['B']?.let { Map.click(it) }
+        33 -> Map.mapping['N']?.let { Map.click(it) }
+        35 -> Map.mapping['M']?.let { Map.click(it) }
+        36 -> Map.mapping['Z']?.let { Map.click(it) }
+        38 -> Map.mapping['X']?.let { Map.click(it) }
+        40 -> Map.mapping['C']?.let { Map.click(it) }
+        41 -> Map.mapping['V']?.let { Map.click(it) }
+        43 -> Map.mapping['B']?.let { Map.click(it) }
+        45 -> Map.mapping['N']?.let { Map.click(it) }
+        47 -> Map.mapping['M']?.let { Map.click(it) }
+        48 -> Map.mapping['Z']?.let { Map.click(it) }
+        50 -> Map.mapping['X']?.let { Map.click(it) }
+        52 -> Map.mapping['C']?.let { Map.click(it) }
+        53 -> Map.mapping['V']?.let { Map.click(it) }
+        55 -> Map.mapping['B']?.let { Map.click(it) }
+        57 -> Map.mapping['N']?.let { Map.click(it) }
+        59 -> Map.mapping['M']?.let { Map.click(it) }
+        60 -> Map.mapping['A']?.let { Map.click(it) }
+        62 -> Map.mapping['S']?.let { Map.click(it) }
+        64 -> Map.mapping['D']?.let { Map.click(it) }
+        65 -> Map.mapping['F']?.let { Map.click(it) }
+        67 -> Map.mapping['G']?.let { Map.click(it) }
+        69 -> Map.mapping['H']?.let { Map.click(it) }
+        71 -> Map.mapping['J']?.let { Map.click(it) }
+        72 -> Map.mapping['Q']?.let { Map.click(it) }
+        74 -> Map.mapping['W']?.let { Map.click(it) }
+        76 -> Map.mapping['E']?.let { Map.click(it) }
+        77 -> Map.mapping['R']?.let { Map.click(it) }
+        79 -> Map.mapping['T']?.let { Map.click(it) }
+        81 -> Map.mapping['Y']?.let { Map.click(it) }
+        83 -> Map.mapping['U']?.let { Map.click(it) }
+        84 -> Map.mapping['Q']?.let { Map.click(it) }
+        86 -> Map.mapping['W']?.let { Map.click(it) }
+        88 -> Map.mapping['E']?.let { Map.click(it) }
+        89 -> Map.mapping['R']?.let { Map.click(it) }
+        91 -> Map.mapping['T']?.let { Map.click(it) }
+        93 -> Map.mapping['Y']?.let { Map.click(it) }
+        95 -> Map.mapping['U']?.let { Map.click(it) }
         else -> {}
     }
 }

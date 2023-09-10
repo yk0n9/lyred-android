@@ -13,4 +13,6 @@
     <string name="show">设置坐标</string>
     <string name="pos">显示坐标</string>
     <string name="_21_n_21">请完全覆盖21个音符\n点击设置坐标后依次点击21个位置</string>
+    <string name="open_float">开启悬浮窗</string>
+    <string name="accessibility_service_description">开启无障碍点击</string>
 </resources>
