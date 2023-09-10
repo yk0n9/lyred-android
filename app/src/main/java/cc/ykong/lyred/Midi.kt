@@ -3,7 +3,6 @@ package cc.ykong.lyred
 import android.app.Service
 import android.content.Intent
 import android.os.IBinder
-import android.util.Log
 import java.io.File
 import javax.sound.midi.MetaMessage
 import javax.sound.midi.MidiEvent
@@ -17,7 +16,6 @@ class Midi : Service() {
         val smf = MidiSystem.getSequence(file)
         val events = ArrayList<MidiEvent>()
         for (track in smf.tracks) {
-            Log.d("t", track.toString())
             for (i in 0 until track.size()) {
                 val e = track.get(i)
                 events.add(e)
@@ -34,7 +32,7 @@ class Midi : Service() {
                 tempo = (data[3].toInt().and(255).toLong()).shl(16)
                     .or((data[4].toInt().and(255).toLong()).shl(8))
                     .or(data[5].toInt().and(255).toLong())
-            } else if (e.message is ShortMessage && e.message.status == ShortMessage.NOTE_ON) {
+            } else if (e.message is ShortMessage && (e.message as ShortMessage).command == ShortMessage.NOTE_ON) {
                 val press = (e.message as ShortMessage).data1
                 val delay = ((e.tick - tick) * (tempo / 1000.0 / smf.resolution)).toLong()
                 tick = e.tick
@@ -83,8 +81,4 @@ class Midi : Service() {
     }
 }
 
-class Event(val press: Int, val delay: Long) {
-    override fun toString(): String {
-        return "click: " + this.press + "delay: " + this.delay
-    }
-}
+class Event(val press: Int, val delay: Long)
