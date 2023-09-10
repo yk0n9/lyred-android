@@ -19,14 +19,14 @@ import java.io.OutputStreamWriter
 import kotlin.math.max
 
 object Map {
+    private var path = Path()
+
     fun click(it: Pos) {
-        val path = Path()
         path.moveTo(it.x, it.y)
-        val gestureDescription = GestureDescription.Builder()
-            .addStroke(GestureDescription.StrokeDescription(path, 0, 1))
-            .build()
         service?.dispatchGesture(
-            gestureDescription,
+            GestureDescription.Builder()
+                .addStroke(GestureDescription.StrokeDescription(path, 0, 10))
+                .build(),
             object : AccessibilityService.GestureResultCallback() {
                 override fun onCancelled(gestureDescription: GestureDescription?) {
                     super.onCancelled(gestureDescription)
