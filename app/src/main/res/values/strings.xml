@@ -10,5 +10,7 @@
     <string name="stop">停止</string>
     <string name="state">已停止</string>
     <string name="save">保存坐标</string>
-    <string name="show">显示坐标</string>
+    <string name="show">设置坐标</string>
+    <string name="_21">点击21个音符</string>
+    <string name="pos">显示坐标</string>
 </resources>

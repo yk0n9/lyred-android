@@ -1,5 +1,6 @@
 package cc.ykong.lyred
 
+import android.widget.Button
 import java.io.File
 import javax.sound.midi.MetaMessage
 import javax.sound.midi.MidiEvent
@@ -40,7 +41,7 @@ class Midi {
         }
     }
 
-    fun play() {
+    fun play(p: Button) {
         Control.playing = true
         thread {
             var startTime = System.currentTimeMillis()
@@ -71,6 +72,7 @@ class Midi {
             }
             Control.playing = false
             Control.is_play = false
+            p.text = "播放"
         }.start()
     }
 }
