@@ -92,7 +92,6 @@ class MainActivity : AppCompatActivity() {
                             // 保存值本地文件
                             it.findViewById<Button>(R.id.save).setOnClickListener {
                                 Control.pos_count = 0
-                                saveLocation()
                             }
                         }
                         .setShowPattern(ShowPattern.ALL_TIME)

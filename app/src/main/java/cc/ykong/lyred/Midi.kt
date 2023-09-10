@@ -11,16 +11,15 @@ import javax.sound.midi.MidiSystem
 import javax.sound.midi.ShortMessage
 
 class Midi : Service() {
-    val events: ArrayList<Event> = ArrayList()
-    private var fps = 0
+    var events: ArrayList<Event> = ArrayList()
 
     fun init(file: File) {
         val smf = MidiSystem.getSequence(file)
-        this.fps = smf.resolution
-        val events: ArrayList<MidiEvent> = ArrayList()
-        smf.tracks.iterator().forEach {
-            for (i in 0 until it.size()) {
-                val e = it.get(i)
+        val events = ArrayList<MidiEvent>()
+        for (track in smf.tracks) {
+            Log.d("t", track.toString())
+            for (i in 0 until track.size()) {
+                val e = track.get(i)
                 events.add(e)
             }
         }
@@ -28,19 +27,21 @@ class Midi : Service() {
 
         var tempo = 500000L
         var tick = 0L
+        val result = ArrayList<Event>()
         for (e in events) {
-            if (e.message is MetaMessage && (e.message as MetaMessage).type == 81) {
+            if (e.message is MetaMessage && (e.message as MetaMessage).type == 0x51) {
                 val data = e.message.message
-                tempo = data[3].toInt().and(255).toLong().shl(16)
-                    .or(data[4].toInt().and(255).toLong().shl(8))
+                tempo = (data[3].toInt().and(255).toLong()).shl(16)
+                    .or((data[4].toInt().and(255).toLong()).shl(8))
                     .or(data[5].toInt().and(255).toLong())
             } else if (e.message is ShortMessage && e.message.status == ShortMessage.NOTE_ON) {
                 val press = (e.message as ShortMessage).data1
-                val delay = ((e.tick - tick) * (tempo / 1000.0 / this.fps)).toLong()
-                this.events.add(Event(press, delay))
+                val delay = ((e.tick - tick) * (tempo / 1000.0 / smf.resolution)).toLong()
                 tick = e.tick
+                result.add(Event(press, delay))
             }
         }
+        this.events = result
     }
 
     override fun onBind(p0: Intent?): IBinder? {
@@ -48,11 +49,12 @@ class Midi : Service() {
     }
 
     fun resetPlay(): Runnable {
+        val events = this.events.toList()
         return Runnable {
             Control.playing = true
             var startTime = System.currentTimeMillis()
             var inputTime = 0.0
-            for (e in this.events) {
+            for (e in events) {
                 if (Control.pause) {
                     while (true) {
                         if (!Control.pause) {
@@ -70,9 +72,8 @@ class Midi : Service() {
                     Thread.sleep(currentTime)
                 }
 
-                Log.d("send", "" + e.press)
                 when (Control.is_play) {
-                    true -> continue
+                    true -> press(e.press)
                     false -> break
                 }
             }
@@ -82,4 +83,8 @@ class Midi : Service() {
     }
 }
 
-class Event(val press: Int, val delay: Long)
+class Event(val press: Int, val delay: Long) {
+    override fun toString(): String {
+        return "click: " + this.press + "delay: " + this.delay
+    }
+}

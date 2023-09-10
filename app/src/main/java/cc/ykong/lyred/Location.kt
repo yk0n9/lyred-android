@@ -19,6 +19,27 @@ import java.io.OutputStreamWriter
 import kotlin.math.max
 
 object Map {
+    fun click(it: Pos) {
+        val path = Path()
+        path.moveTo(it.x, it.y)
+        val gestureDescription = GestureDescription.Builder()
+            .addStroke(GestureDescription.StrokeDescription(path, 0, 1))
+            .build()
+        service?.dispatchGesture(
+            gestureDescription,
+            object : AccessibilityService.GestureResultCallback() {
+                override fun onCancelled(gestureDescription: GestureDescription?) {
+                    super.onCancelled(gestureDescription)
+                }
+
+                override fun onCompleted(gestureDescription: GestureDescription?) {
+                    super.onCompleted(gestureDescription)
+                }
+            },
+            null
+        )
+    }
+
     var mapping = mutableMapOf(
         'Z' to zero(),
         'X' to zero(),
@@ -42,26 +63,6 @@ object Map {
         'Y' to zero(),
         'U' to zero(),
     )
-
-    fun click(pos: Pos) {
-        val builder = GestureDescription.Builder()
-        val path = Path()
-        path.moveTo(pos.x, pos.y)
-        builder.addStroke(GestureDescription.StrokeDescription(path, 0, 10))
-        Clicker.Click.clicker.dispatchGesture(
-            builder.build(),
-            object : AccessibilityService.GestureResultCallback() {
-                override fun onCancelled(gestureDescription: GestureDescription?) {
-                    super.onCancelled(gestureDescription)
-                }
-
-                override fun onCompleted(gestureDescription: GestureDescription?) {
-                    super.onCompleted(gestureDescription)
-                }
-            },
-            null
-        )
-    }
 }
 
 @Serializable
