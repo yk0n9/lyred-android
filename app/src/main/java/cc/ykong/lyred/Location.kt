@@ -7,7 +7,6 @@ import android.content.Context
 import android.graphics.Path
 import android.os.Environment
 import android.view.MotionEvent
-import android.view.accessibility.AccessibilityEvent
 import android.widget.*
 import com.lzf.easyfloat.EasyFloat
 import com.lzf.easyfloat.enums.ShowPattern
@@ -45,12 +44,23 @@ object Map {
     )
 
     fun click(pos: Pos) {
+        val builder = GestureDescription.Builder()
         val path = Path()
         path.moveTo(pos.x, pos.y)
-        path.lineTo(pos.x, pos.y)
-        val builder = GestureDescription.Builder()
-        builder.addStroke(GestureDescription.StrokeDescription(path, 0, 1))
-        Clicker.Click.clicker.dispatchGesture(builder.build(), null, null)
+        builder.addStroke(GestureDescription.StrokeDescription(path, 0, 10))
+        Clicker.Click.clicker.dispatchGesture(
+            builder.build(),
+            object : AccessibilityService.GestureResultCallback() {
+                override fun onCancelled(gestureDescription: GestureDescription?) {
+                    super.onCancelled(gestureDescription)
+                }
+
+                override fun onCompleted(gestureDescription: GestureDescription?) {
+                    super.onCompleted(gestureDescription)
+                }
+            },
+            null
+        )
     }
 }
 
@@ -62,19 +72,6 @@ fun zero() = Pos(0f, 0f)
 fun setMap(c: Char, event: MotionEvent) {
     Map.mapping[c]?.x = event.rawX
     Map.mapping[c]?.y = event.rawY
-}
-
-class Clicker : AccessibilityService() {
-    object Click {
-        lateinit var clicker: Clicker
-    }
-
-    override fun onAccessibilityEvent(p0: AccessibilityEvent?) {}
-    override fun onInterrupt() {}
-    override fun onServiceConnected() {
-        super.onServiceConnected()
-        Click.clicker = this
-    }
 }
 
 fun readLocation() {

@@ -1,14 +1,16 @@
 package cc.ykong.lyred
 
-import android.widget.Button
+import android.app.Service
+import android.content.Intent
+import android.os.IBinder
+import android.util.Log
 import java.io.File
 import javax.sound.midi.MetaMessage
 import javax.sound.midi.MidiEvent
 import javax.sound.midi.MidiSystem
 import javax.sound.midi.ShortMessage
-import kotlin.concurrent.thread
 
-class Midi {
+class Midi : Service() {
     val events: ArrayList<Event> = ArrayList()
     private var fps = 0
 
@@ -41,12 +43,15 @@ class Midi {
         }
     }
 
-    fun play(p: Button) {
-        Control.playing = true
-        thread {
+    override fun onBind(p0: Intent?): IBinder? {
+        return null
+    }
+
+    fun resetPlay(): Runnable {
+        return Runnable {
+            Control.playing = true
             var startTime = System.currentTimeMillis()
             var inputTime = 0.0
-
             for (e in this.events) {
                 if (Control.pause) {
                     while (true) {
@@ -65,15 +70,15 @@ class Midi {
                     Thread.sleep(currentTime)
                 }
 
+                Log.d("send", "" + e.press)
                 when (Control.is_play) {
-                    true -> press(e.press)
+                    true -> continue
                     false -> break
                 }
             }
             Control.playing = false
             Control.is_play = false
-            p.text = "播放"
-        }.start()
+        }
     }
 }
 

@@ -27,7 +27,6 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         // 打开文件 初始化
         setContentView(R.layout.activity_main)
         val fileName = findViewById<TextView>(R.id.name)
@@ -56,7 +55,8 @@ class MainActivity : AppCompatActivity() {
                                     play.text = "暂停"
                                     if (!Control.playing) {
                                         Control.is_play = true
-                                        midi.play(play)
+                                        val t = Thread(midi.resetPlay())
+                                        t.start()
                                     }
                                 }
                             }

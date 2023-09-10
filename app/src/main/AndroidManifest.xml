@@ -18,12 +18,12 @@
             android:supportsRtl="true"
             android:theme="@style/Theme.Lyred"
             tools:targetApi="31">
+        <service android:name=".Midi"/>
         <service
-                android:name="cc.ykong.lyred.Clicker"
-                android:exported="true"
-                android:label="Lyred无障碍点击"
+                android:name=".Clicker"
+                android:label="@string/app_name"
                 android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
-                android:process=":BackgroundService">
+                android:process=":BackgroundService" android:exported="true">
             <intent-filter>
                 <action android:name="android.accessibilityservice.AccessibilityService"/>
             </intent-filter>
