@@ -1,6 +1,5 @@
 package cc.ykong.lyred
 
-import android.accessibilityservice.AccessibilityService
 import android.accessibilityservice.GestureDescription
 import android.annotation.SuppressLint
 import android.content.Context
@@ -26,15 +25,7 @@ object Map {
             GestureDescription.Builder()
                 .addStroke(GestureDescription.StrokeDescription(path, 0, 10))
                 .build(),
-            object : AccessibilityService.GestureResultCallback() {
-                override fun onCancelled(gestureDescription: GestureDescription?) {
-                    super.onCancelled(gestureDescription)
-                }
-
-                override fun onCompleted(gestureDescription: GestureDescription?) {
-                    super.onCompleted(gestureDescription)
-                }
-            },
+            null,
             null
         )
     }

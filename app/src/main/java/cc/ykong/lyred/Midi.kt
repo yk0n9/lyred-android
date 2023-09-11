@@ -58,7 +58,7 @@ class Midi {
                 }
                 inputTime += e.delay / Control.speed
                 val playbackTime = System.currentTimeMillis() - startTime
-                val currentTime = (inputTime - playbackTime).toLong()
+                val currentTime = (inputTime - playbackTime).toLong() - 10
 
                 if (currentTime > 0) {
                     Thread.sleep(currentTime)
