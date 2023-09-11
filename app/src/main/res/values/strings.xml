@@ -16,4 +16,6 @@
     <string name="open_float">开启悬浮窗</string>
     <string name="accessibility_service_description">开启无障碍点击</string>
     <string name="accessibility_service_label">lyred点击服务</string>
+    <string name="_0_1">+0.1</string>
+    <string name="_0__1">-0.1</string>
 </resources>

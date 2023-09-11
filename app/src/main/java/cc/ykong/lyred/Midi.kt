@@ -1,10 +1,11 @@
 package cc.ykong.lyred
 
-import java.io.File
+import android.widget.Button
 import libmidi.midi.MetaMessage
 import libmidi.midi.MidiEvent
 import libmidi.midi.MidiSystem
 import libmidi.midi.ShortMessage
+import java.io.File
 
 class Midi {
     var events: ArrayList<Event> = ArrayList()
@@ -39,7 +40,7 @@ class Midi {
         this.events = result
     }
 
-    fun resetPlay(): Runnable {
+    fun resetPlay(play: Button): Runnable {
         val events = this.events.toList()
         return Runnable {
             Control.playing = true
@@ -70,6 +71,7 @@ class Midi {
             }
             Control.playing = false
             Control.is_play = false
+            play.text = "播放"
         }
     }
 }

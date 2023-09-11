@@ -24,15 +24,15 @@
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_bias="0.012"
             app:layout_constraintVertical_bias="0.01"/>
-    <Button
-            android:text="@string/convert"
-            android:layout_width="108dp"
-            android:layout_height="58dp" android:id="@+id/convert"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toEndOf="@id/open"
-            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintVertical_bias="0.01"/>
+<!--    <Button-->
+<!--            android:text="@string/convert"-->
+<!--            android:layout_width="108dp"-->
+<!--            android:layout_height="58dp" android:id="@+id/convert"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintStart_toEndOf="@id/open"-->
+<!--            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintHorizontal_bias="0.0"-->
+<!--            app:layout_constraintVertical_bias="0.01"/>-->
     <TextView
             android:text="@string/file"
             android:layout_width="wrap_content"
@@ -51,17 +51,17 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" android:textSize="24sp"
             app:layout_constraintHorizontal_bias="1.0" app:layout_constraintVertical_bias="0.022"/>
-    <EditText
+    <TextView
             android:layout_width="56dp"
             android:layout_height="49dp"
-            android:inputType="numberDecimal"
             android:ems="10"
             android:id="@+id/speed"
             app:layout_constraintTop_toBottomOf="@+id/file"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintHorizontal_bias="0.046" app:layout_constraintVertical_bias="0.035"
-            android:hint="@string/now_speed" android:autofillHints="1.0" android:textColorHint="#8D6E63"/>
+            android:hint="@string/now_speed" android:autofillHints="1.0" android:textColorHint="#8D6E63"
+            android:textSize="24sp" android:gravity="center"/>
     <TextView
             android:text="@string/the_speed"
             android:layout_width="wrap_content"
@@ -79,5 +79,23 @@
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_bias="0.052"
             app:layout_constraintVertical_bias="0.122"/>
+    <Button
+            android:text="@string/_0__1"
+            android:layout_width="76dp"
+            android:layout_height="48dp" android:id="@+id/div"
+            app:layout_constraintStart_toEndOf="@+id/the_speed"
+            app:layout_constraintTop_toBottomOf="@+id/file"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintVertical_bias="0.038"/>
+    <Button
+            android:text="@string/_0_1"
+            android:layout_width="81dp"
+            android:layout_height="49dp" android:id="@+id/add"
+            app:layout_constraintStart_toEndOf="@id/div"
+            app:layout_constraintTop_toBottomOf="@+id/file"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintVertical_bias="0.038"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

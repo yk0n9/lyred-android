@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.lzf.easyfloat.EasyFloat
 import com.lzf.easyfloat.enums.ShowPattern
 import com.obsez.android.lib.filechooser.ChooserDialog
+import java.math.BigDecimal
 
 object Control {
     var speed: Double = 1.0
@@ -27,24 +28,34 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // 打开文件 初始化
         setContentView(R.layout.activity_main)
         val fileName = findViewById<TextView>(R.id.name)
+        val div = findViewById<Button>(R.id.div)
+        val add = findViewById<Button>(R.id.add)
+        val speed = findViewById<TextView>(R.id.speed)
         findViewById<Button>(R.id.open).setOnClickListener {
             ChooserDialog(this).withFilter(false, false, "mid").withChosenListener { _, dirFile ->
                 midi.init(dirFile)
                 fileName.text = dirFile.name
             }.build().show()
         }
+        div.setOnClickListener {
+            if (Control.speed > 0.1) {
+                Control.speed = BigDecimal(Control.speed).subtract(BigDecimal(0.1)).toDouble()
+                speed.text = Control.speed.toString()
+            }
+        }
+        add.setOnClickListener {
+            Control.speed = BigDecimal(Control.speed).add(BigDecimal(0.1)).toDouble()
+            speed.text = Control.speed.toString()
+        }
 
         findViewById<CheckBox>(R.id.open_float).setOnCheckedChangeListener { _, b ->
             when (b) {
                 true -> {
-                    // 主要悬浮窗
                     EasyFloat.with(this)
                         .setTag("play")
                         .setLayout(R.layout.float_play) {
-                            // 播放 暂停
                             val play = it.findViewById<Button>(R.id.play)
                             val save = it.findViewById<Button>(R.id.save)
                             if (readLocation()) {
@@ -59,8 +70,7 @@ class MainActivity : AppCompatActivity() {
                                     play.text = "暂停"
                                     if (!Control.playing) {
                                         Control.is_play = true
-                                        val t = Thread(midi.resetPlay())
-                                        t.start()
+                                        Thread(midi.resetPlay(play)).start()
                                     }
                                 }
                             }
@@ -70,14 +80,12 @@ class MainActivity : AppCompatActivity() {
                                 play.text = "播放"
                             }
 
-                            // 创建坐标面板
                             it.findViewById<Switch>(R.id.pos).setOnCheckedChangeListener { _, b ->
                                 when (b) {
                                     true -> createLocation(this, "location")
                                     false -> EasyFloat.dismiss("location", true)
                                 }
                             }
-                            // 固定坐标面板/设置
                             it.findViewById<CheckBox>(R.id.show).setOnCheckedChangeListener { a, b ->
                                 when (b) {
                                     true -> {
@@ -93,7 +101,6 @@ class MainActivity : AppCompatActivity() {
                                     }
                                 }
                             }
-                            // 保存值本地文件
                             it.findViewById<Button>(R.id.save).setOnClickListener {
                                 Control.pos_count = 0
                                 saveLocation()
