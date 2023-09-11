@@ -1,15 +1,12 @@
 package cc.ykong.lyred
 
-import android.app.Service
-import android.content.Intent
-import android.os.IBinder
 import java.io.File
-import javax.sound.midi.MetaMessage
-import javax.sound.midi.MidiEvent
-import javax.sound.midi.MidiSystem
-import javax.sound.midi.ShortMessage
+import libmidi.midi.MetaMessage
+import libmidi.midi.MidiEvent
+import libmidi.midi.MidiSystem
+import libmidi.midi.ShortMessage
 
-class Midi : Service() {
+class Midi {
     var events: ArrayList<Event> = ArrayList()
 
     fun init(file: File) {
@@ -40,10 +37,6 @@ class Midi : Service() {
             }
         }
         this.events = result
-    }
-
-    override fun onBind(p0: Intent?): IBinder? {
-        return null
     }
 
     fun resetPlay(): Runnable {

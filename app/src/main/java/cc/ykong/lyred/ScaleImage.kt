@@ -22,7 +22,6 @@ class ScaleImage(context: Context, attrs: AttributeSet? = null) : AppCompatImage
 
         if (event == null) return super.onTouchEvent(event)
 
-        // 屏蔽掉浮窗的事件拦截，仅由自身消费
         parent?.requestDisallowInterceptTouchEvent(true)
 
         when (event.action) {
