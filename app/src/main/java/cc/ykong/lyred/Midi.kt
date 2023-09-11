@@ -1,6 +1,5 @@
 package cc.ykong.lyred
 
-import android.widget.Button
 import libmidi.midi.MetaMessage
 import libmidi.midi.MidiEvent
 import libmidi.midi.MidiSystem
