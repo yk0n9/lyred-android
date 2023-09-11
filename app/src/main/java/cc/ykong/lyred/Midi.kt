@@ -6,6 +6,7 @@ import libmidi.midi.MidiEvent
 import libmidi.midi.MidiSystem
 import libmidi.midi.ShortMessage
 import java.io.File
+import kotlin.concurrent.thread
 
 class Midi {
     var events: ArrayList<Event> = ArrayList()
@@ -40,9 +41,9 @@ class Midi {
         this.events = result
     }
 
-    fun resetPlay(play: Button): Runnable {
+    fun play(): Thread {
         val events = this.events.toList()
-        return Runnable {
+        return thread {
             Control.playing = true
             var startTime = System.currentTimeMillis()
             var inputTime = 0.0
@@ -71,7 +72,6 @@ class Midi {
             }
             Control.playing = false
             Control.is_play = false
-            play.text = "播放"
         }
     }
 }

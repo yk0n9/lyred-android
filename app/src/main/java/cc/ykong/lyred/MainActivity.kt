@@ -70,7 +70,7 @@ class MainActivity : AppCompatActivity() {
                                     play.text = "暂停"
                                     if (!Control.playing) {
                                         Control.is_play = true
-                                        Thread(midi.resetPlay(play)).start()
+                                        midi.play()
                                     }
                                 }
                             }
