@@ -5,7 +5,6 @@ import android.accessibilityservice.GestureDescription
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Path
-import android.os.Environment
 import android.view.MotionEvent
 import android.widget.*
 import com.lzf.easyfloat.EasyFloat
@@ -75,26 +74,32 @@ fun setMap(c: Char, event: MotionEvent) {
     Map.mapping[c]?.y = event.rawY
 }
 
-fun readLocation() {
-    val sd = Environment.getExternalStorageDirectory()
-    val jsonFile = File(sd, "mapping.json")
+@SuppressLint("SdCardPath")
+fun readLocation(): Boolean {
+    val jsonFile = File("/data/data/cc.ykong.lyred/mapping.json")
+    if (jsonFile.exists()) {
+        Map.mapping = Json.decodeFromString(jsonFile.readText())
+        return true
+    }
+    return false
 }
 
+@SuppressLint("SdCardPath")
 fun saveLocation() {
     val jsonString = Json.encodeToString(Map.mapping)
-    val sd = Environment.getExternalStorageDirectory()
-    val file = File(sd, "mapping.json")
-    if (sd.exists()) {
-        val fos = FileOutputStream(file)
-        val osw = OutputStreamWriter(fos, "UTF-8")
-        osw.write(jsonString)
-
-        osw.flush()
-        fos.flush()
-
-        osw.close()
-        fos.close()
+    val file = File("/data/data/cc.ykong.lyred/mapping.json")
+    if (!file.exists()) {
+        file.createNewFile()
     }
+    val fos = FileOutputStream(file)
+    val osw = OutputStreamWriter(fos, "UTF-8")
+    osw.write(jsonString)
+
+    osw.flush()
+    fos.flush()
+
+    osw.close()
+    fos.close()
 }
 
 fun press(key: Int) {

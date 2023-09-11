@@ -46,6 +46,10 @@ class MainActivity : AppCompatActivity() {
                         .setLayout(R.layout.float_play) {
                             // 播放 暂停
                             val play = it.findViewById<Button>(R.id.play)
+                            val save = it.findViewById<Button>(R.id.save)
+                            if (readLocation()) {
+                                save.text = "已读取"
+                            }
                             play.setOnClickListener {
                                 if (!Control.pause && Control.is_play) {
                                     Control.pause = true
@@ -92,6 +96,8 @@ class MainActivity : AppCompatActivity() {
                             // 保存值本地文件
                             it.findViewById<Button>(R.id.save).setOnClickListener {
                                 Control.pos_count = 0
+                                saveLocation()
+                                save.text = "保存成功"
                             }
                         }
                         .setShowPattern(ShowPattern.ALL_TIME)
