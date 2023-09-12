@@ -5,7 +5,12 @@ import libmidi.midi.MidiEvent
 import libmidi.midi.MidiSystem
 import libmidi.midi.ShortMessage
 import java.io.File
-import kotlin.concurrent.thread
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.Executors
+
+object Pool {
+    val pool: ExecutorService = Executors.newFixedThreadPool(1)
+}
 
 class Midi {
     var events: ArrayList<Event> = ArrayList()
@@ -40,9 +45,9 @@ class Midi {
         this.events = result
     }
 
-    fun play(): Thread {
+    fun play() {
         val events = this.events.toList()
-        return thread {
+        Pool.pool.execute {
             Control.playing = true
             var startTime = System.currentTimeMillis()
             var inputTime = 0.0
