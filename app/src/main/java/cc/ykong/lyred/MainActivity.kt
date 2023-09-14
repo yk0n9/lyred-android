@@ -1,6 +1,7 @@
 package cc.ykong.lyred
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.widget.Button
 import android.widget.CheckBox
@@ -25,7 +26,6 @@ class MainActivity : AppCompatActivity() {
 
     val midi: Midi = Midi()
 
-    @SuppressLint("ClickableViewAccessibility", "SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -34,10 +34,7 @@ class MainActivity : AppCompatActivity() {
         val add = findViewById<Button>(R.id.add)
         val speed = findViewById<TextView>(R.id.speed)
         findViewById<Button>(R.id.open).setOnClickListener {
-            ChooserDialog(this).withFilter(false, false, "mid").withChosenListener { _, dirFile ->
-                midi.init(dirFile)
-                fileName.text = "你选择的是: " + dirFile.name
-            }.build().show()
+            open(midi, fileName, this)
         }
         div.setOnClickListener {
             if (Control.speed > 0.1) {
@@ -107,10 +104,8 @@ class MainActivity : AppCompatActivity() {
                                 save.text = "保存成功"
                             }
                             it.findViewById<Button>(R.id.open_f).setOnClickListener {
-                                ChooserDialog(this).withFilter(false, false, "mid").withChosenListener { _, dirFile ->
-                                    midi.init(dirFile)
-                                    fileName.text = "你选择的是: " + dirFile.name
-                                }.build().show()
+                                play.text = "播放"
+                                open(midi, fileName, this)
                             }
                         }
                         .setShowPattern(ShowPattern.ALL_TIME)
@@ -123,3 +118,12 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
+@SuppressLint("SetTextI18n")
+fun open(midi: Midi, text: TextView, context: Context) {
+    Control.is_play = false
+    Control.pause = false
+    ChooserDialog(context).withFilter(false, false, "mid").withChosenListener { _, dirFile ->
+        midi.init(dirFile)
+        text.text = "你选择的是: " + dirFile.name
+    }.build().show()
+}
