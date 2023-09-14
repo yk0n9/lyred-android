@@ -32,27 +32,27 @@ object Map {
     }
 
     var mapping = mutableMapOf(
-        'Z' to zero(),
-        'X' to zero(),
-        'C' to zero(),
-        'V' to zero(),
-        'B' to zero(),
-        'N' to zero(),
-        'M' to zero(),
-        'A' to zero(),
-        'S' to zero(),
-        'D' to zero(),
-        'F' to zero(),
-        'G' to zero(),
-        'H' to zero(),
-        'J' to zero(),
-        'Q' to zero(),
-        'W' to zero(),
-        'E' to zero(),
-        'R' to zero(),
-        'T' to zero(),
-        'Y' to zero(),
-        'U' to zero(),
+        1 to zero(),
+        2 to zero(),
+        3 to zero(),
+        4 to zero(),
+        5 to zero(),
+        6 to zero(),
+        7 to zero(),
+        8 to zero(),
+        9 to zero(),
+        10 to zero(),
+        11 to zero(),
+        12 to zero(),
+        13 to zero(),
+        14 to zero(),
+        15 to zero(),
+        16 to zero(),
+        17 to zero(),
+        18 to zero(),
+        19 to zero(),
+        20 to zero(),
+        21 to zero(),
     )
 }
 
@@ -61,9 +61,9 @@ data class Pos(var x: Float, var y: Float)
 
 fun zero() = Pos(0f, 0f)
 
-fun setMap(c: Char, event: MotionEvent) {
-    Map.mapping[c]?.x = event.rawX
-    Map.mapping[c]?.y = event.rawY
+fun setMap(i: Int, event: MotionEvent) {
+    Map.mapping[i]?.x = event.rawX
+    Map.mapping[i]?.y = event.rawY
 }
 
 @SuppressLint("SdCardPath")
@@ -96,49 +96,48 @@ fun saveLocation() {
 
 fun press(key: Int) {
     when (key) {
-        24 -> Map.mapping['Z']?.let { Map.click(it) }
-        26 -> Map.mapping['X']?.let { Map.click(it) }
-        28 -> Map.mapping['C']?.let { Map.click(it) }
-        29 -> Map.mapping['V']?.let { Map.click(it) }
-        31 -> Map.mapping['B']?.let { Map.click(it) }
-        33 -> Map.mapping['N']?.let { Map.click(it) }
-        35 -> Map.mapping['M']?.let { Map.click(it) }
-        36 -> Map.mapping['Z']?.let { Map.click(it) }
-        38 -> Map.mapping['X']?.let { Map.click(it) }
-        40 -> Map.mapping['C']?.let { Map.click(it) }
-        41 -> Map.mapping['V']?.let { Map.click(it) }
-        43 -> Map.mapping['B']?.let { Map.click(it) }
-        45 -> Map.mapping['N']?.let { Map.click(it) }
-        47 -> Map.mapping['M']?.let { Map.click(it) }
-        48 -> Map.mapping['Z']?.let { Map.click(it) }
-        50 -> Map.mapping['X']?.let { Map.click(it) }
-        52 -> Map.mapping['C']?.let { Map.click(it) }
-        53 -> Map.mapping['V']?.let { Map.click(it) }
-        55 -> Map.mapping['B']?.let { Map.click(it) }
-        57 -> Map.mapping['N']?.let { Map.click(it) }
-        59 -> Map.mapping['M']?.let { Map.click(it) }
-        60 -> Map.mapping['A']?.let { Map.click(it) }
-        62 -> Map.mapping['S']?.let { Map.click(it) }
-        64 -> Map.mapping['D']?.let { Map.click(it) }
-        65 -> Map.mapping['F']?.let { Map.click(it) }
-        67 -> Map.mapping['G']?.let { Map.click(it) }
-        69 -> Map.mapping['H']?.let { Map.click(it) }
-        71 -> Map.mapping['J']?.let { Map.click(it) }
-        72 -> Map.mapping['Q']?.let { Map.click(it) }
-        74 -> Map.mapping['W']?.let { Map.click(it) }
-        76 -> Map.mapping['E']?.let { Map.click(it) }
-        77 -> Map.mapping['R']?.let { Map.click(it) }
-        79 -> Map.mapping['T']?.let { Map.click(it) }
-        81 -> Map.mapping['Y']?.let { Map.click(it) }
-        83 -> Map.mapping['U']?.let { Map.click(it) }
-        84 -> Map.mapping['Q']?.let { Map.click(it) }
-        86 -> Map.mapping['W']?.let { Map.click(it) }
-        88 -> Map.mapping['E']?.let { Map.click(it) }
-        89 -> Map.mapping['R']?.let { Map.click(it) }
-        91 -> Map.mapping['T']?.let { Map.click(it) }
-        93 -> Map.mapping['Y']?.let { Map.click(it) }
-        95 -> Map.mapping['U']?.let { Map.click(it) }
-        else -> {}
+        24 -> Map.mapping[15]?.let { Map.click(it) }
+        26 -> Map.mapping[16]?.let { Map.click(it) }
+        28 -> Map.mapping[17]?.let { Map.click(it) }
+        29 -> Map.mapping[18]?.let { Map.click(it) }
+        31 -> Map.mapping[19]?.let { Map.click(it) }
+        33 -> Map.mapping[20]?.let { Map.click(it) }
+        35 -> Map.mapping[21]?.let { Map.click(it) }
+        36 -> Map.mapping[15]?.let { Map.click(it) }
+        38 -> Map.mapping[16]?.let { Map.click(it) }
+        40 -> Map.mapping[17]?.let { Map.click(it) }
+        41 -> Map.mapping[18]?.let { Map.click(it) }
+        43 -> Map.mapping[19]?.let { Map.click(it) }
+        45 -> Map.mapping[20]?.let { Map.click(it) }
+        47 -> Map.mapping[21]?.let { Map.click(it) }
+        48 -> Map.mapping[15]?.let { Map.click(it) }
+        50 -> Map.mapping[16]?.let { Map.click(it) }
+        52 -> Map.mapping[17]?.let { Map.click(it) }
+        53 -> Map.mapping[18]?.let { Map.click(it) }
+        55 -> Map.mapping[19]?.let { Map.click(it) }
+        57 -> Map.mapping[20]?.let { Map.click(it) }
+        59 -> Map.mapping[21]?.let { Map.click(it) }
+        60 -> Map.mapping[8]?.let { Map.click(it) }
+        62 -> Map.mapping[9]?.let { Map.click(it) }
+        64 -> Map.mapping[10]?.let { Map.click(it) }
+        65 -> Map.mapping[11]?.let { Map.click(it) }
+        67 -> Map.mapping[12]?.let { Map.click(it) }
+        69 -> Map.mapping[13]?.let { Map.click(it) }
+        71 -> Map.mapping[14]?.let { Map.click(it) }
+        72 -> Map.mapping[1]?.let { Map.click(it) }
+        74 -> Map.mapping[2]?.let { Map.click(it) }
+        76 -> Map.mapping[3]?.let { Map.click(it) }
+        77 -> Map.mapping[4]?.let { Map.click(it) }
+        79 -> Map.mapping[5]?.let { Map.click(it) }
+        81 -> Map.mapping[6]?.let { Map.click(it) }
+        83 -> Map.mapping[7]?.let { Map.click(it) }
+        84 -> Map.mapping[1]?.let { Map.click(it) }
+        86 -> Map.mapping[2]?.let { Map.click(it) }
+        88 -> Map.mapping[3]?.let { Map.click(it) }
+        89 -> Map.mapping[4]?.let { Map.click(it) }
+        91 -> Map.mapping[5]?.let { Map.click(it) }
+        93 -> Map.mapping[6]?.let { Map.click(it) }
+        95 -> Map.mapping[7]?.let { Map.click(it) }
     }
 }
 
@@ -157,107 +156,107 @@ fun createLocation(context: Context, tag: String) {
                                 Control.pos_count++
                                 when (Control.pos_count) {
                                     1 -> {
-                                        setMap('Q', motionEvent)
+                                        setMap(1, motionEvent)
                                         show?.text = "正在设置+2"
                                     }
 
                                     2 -> {
-                                        setMap('W', motionEvent)
+                                        setMap(2, motionEvent)
                                         show?.text = "正在设置+3"
                                     }
 
                                     3 -> {
-                                        setMap('E', motionEvent)
+                                        setMap(3, motionEvent)
                                         show?.text = "正在设置+4"
                                     }
 
                                     4 -> {
-                                        setMap('R', motionEvent)
+                                        setMap(4, motionEvent)
                                         show?.text = "正在设置+5"
                                     }
 
                                     5 -> {
-                                        setMap('T', motionEvent)
+                                        setMap(5, motionEvent)
                                         show?.text = "正在设置+6"
                                     }
 
                                     6 -> {
-                                        setMap('Y', motionEvent)
+                                        setMap(6, motionEvent)
                                         show?.text = "正在设置+7"
                                     }
 
                                     7 -> {
-                                        setMap('U', motionEvent)
+                                        setMap(7, motionEvent)
                                         show?.text = "正在设置1"
                                     }
 
                                     8 -> {
-                                        setMap('A', motionEvent)
+                                        setMap(8, motionEvent)
                                         show?.text = "正在设置2"
                                     }
 
                                     9 -> {
-                                        setMap('S', motionEvent)
+                                        setMap(9, motionEvent)
                                         show?.text = "正在设置3"
                                     }
 
                                     10 -> {
-                                        setMap('D', motionEvent)
+                                        setMap(10, motionEvent)
                                         show?.text = "正在设置4"
                                     }
 
                                     11 -> {
-                                        setMap('F', motionEvent)
+                                        setMap(11, motionEvent)
                                         show?.text = "正在设置5"
                                     }
 
                                     12 -> {
-                                        setMap('G', motionEvent)
+                                        setMap(12, motionEvent)
                                         show?.text = "正在设置6"
                                     }
 
                                     13 -> {
-                                        setMap('H', motionEvent)
+                                        setMap(13, motionEvent)
                                         show?.text = "正在设置7"
                                     }
 
                                     14 -> {
-                                        setMap('J', motionEvent)
+                                        setMap(14, motionEvent)
                                         show?.text = "正在设置-1"
                                     }
 
                                     15 -> {
-                                        setMap('Z', motionEvent)
+                                        setMap(15, motionEvent)
                                         show?.text = "正在设置-2"
                                     }
 
                                     16 -> {
-                                        setMap('X', motionEvent)
+                                        setMap(16, motionEvent)
                                         show?.text = "正在设置-3"
                                     }
 
                                     17 -> {
-                                        setMap('C', motionEvent)
+                                        setMap(17, motionEvent)
                                         show?.text = "正在设置-4"
                                     }
 
                                     18 -> {
-                                        setMap('V', motionEvent)
+                                        setMap(18, motionEvent)
                                         show?.text = "正在设置-5"
                                     }
 
                                     19 -> {
-                                        setMap('B', motionEvent)
+                                        setMap(19, motionEvent)
                                         show?.text = "正在设置-6"
                                     }
 
                                     20 -> {
-                                        setMap('N', motionEvent)
+                                        setMap(20, motionEvent)
                                         show?.text = "正在设置-7"
                                     }
 
                                     21 -> {
-                                        setMap('M', motionEvent)
+                                        setMap(21, motionEvent)
                                         show?.isChecked = false
                                         show?.text = "设置完毕"
                                     }
