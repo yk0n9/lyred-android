@@ -259,6 +259,8 @@ fun createLocation(context: Context, tag: String) {
                                         setMap(21, motionEvent)
                                         show?.isChecked = false
                                         show?.text = "设置完毕"
+                                        pos?.isChecked = false
+                                        EasyFloat.dismiss(tag)
                                     }
                                 }
                             }
