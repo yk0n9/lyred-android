@@ -22,8 +22,9 @@ object Map {
     fun click(it: Pos) {
         path.moveTo(it.x, it.y)
         service?.dispatchGesture(
-            GestureDescription.Builder()
-                .addStroke(GestureDescription.StrokeDescription(path, 0, 10))
+            GestureDescription
+                .Builder()
+                .addStroke(GestureDescription.StrokeDescription(path, 0, 50))
                 .build(),
             null,
             null

@@ -1,9 +1,9 @@
 package cc.ykong.lyred
 
-import libmidi.midi.MetaMessage
 import libmidi.midi.MidiEvent
 import libmidi.midi.MidiSystem
 import libmidi.midi.ShortMessage
+import libmidi.sound.MidiUtils
 import java.io.File
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -26,18 +26,15 @@ class Midi {
         }
         events.sortWith(Comparator.comparing(MidiEvent::getTick))
 
-        var tempo = 500000L
+        var tempo = MidiUtils.DEFAULT_TEMPO_MPQ
         var tick = 0L
         val result = ArrayList<Event>()
         for (e in events) {
-            if (e.message is MetaMessage && (e.message as MetaMessage).type == 0x51) {
-                val data = e.message.message
-                tempo = (data[3].toInt().and(255).toLong()).shl(16)
-                    .or((data[4].toInt().and(255).toLong()).shl(8))
-                    .or(data[5].toInt().and(255).toLong())
+            if (MidiUtils.isMetaTempo(e.message)) {
+                tempo = MidiUtils.getTempoMPQ(e.message)
             } else if (e.message is ShortMessage && (e.message as ShortMessage).command == ShortMessage.NOTE_ON) {
                 val press = (e.message as ShortMessage).data1
-                val delay = ((e.tick - tick) * (tempo / 1000.0 / smf.resolution)).toLong()
+                val delay = MidiUtils.ticks2microsec(e.tick - tick, tempo.toDouble(), smf.resolution) / 1000
                 tick = e.tick
                 result.add(Event(press, delay))
             }
@@ -50,20 +47,20 @@ class Midi {
         Pool.pool.execute {
             Control.playing = true
             var startTime = System.currentTimeMillis()
-            var inputTime = 0.0
+            var inputTime = 0L
             for (e in events) {
                 if (Control.pause) {
                     while (true) {
                         if (!Control.pause) {
-                            inputTime = e.delay.toDouble()
+                            inputTime = e.delay
                             startTime = System.currentTimeMillis()
                             break
                         }
                     }
                 }
-                inputTime += e.delay / Control.speed
+                inputTime += (e.delay / Control.speed).toLong()
                 val playbackTime = System.currentTimeMillis() - startTime
-                val currentTime = (inputTime - playbackTime).toLong() - 10
+                val currentTime = inputTime - playbackTime
 
                 if (currentTime > 0) {
                     Thread.sleep(currentTime)
