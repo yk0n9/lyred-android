@@ -50,13 +50,10 @@ class Midi {
             var inputTime = 0L
             for (e in events) {
                 if (Control.pause) {
-                    while (true) {
-                        if (!Control.pause) {
-                            inputTime = e.delay
-                            startTime = System.currentTimeMillis()
-                            break
-                        }
+                    while (Control.pause) {
                     }
+                    inputTime = e.delay
+                    startTime = System.currentTimeMillis()
                 }
                 inputTime += (e.delay / Control.speed).toLong()
                 val playbackTime = System.currentTimeMillis() - startTime
