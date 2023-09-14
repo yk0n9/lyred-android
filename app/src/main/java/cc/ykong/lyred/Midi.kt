@@ -48,6 +48,7 @@ class Midi {
             Control.playing = true
             var startTime = System.currentTimeMillis()
             var inputTime = 0L
+
             for (e in events) {
                 if (Control.pause) {
                     while (Control.pause) {
@@ -55,9 +56,9 @@ class Midi {
                     inputTime = e.delay
                     startTime = System.currentTimeMillis()
                 }
+
                 inputTime += (e.delay / Control.speed).toLong()
-                val playbackTime = System.currentTimeMillis() - startTime
-                val currentTime = inputTime - playbackTime
+                val currentTime = inputTime - (System.currentTimeMillis() - startTime)
 
                 if (currentTime > 0) {
                     Thread.sleep(currentTime)
@@ -68,6 +69,7 @@ class Midi {
                     false -> break
                 }
             }
+
             Control.playing = false
             Control.is_play = false
         }
