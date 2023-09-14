@@ -23,7 +23,8 @@
             app:layout_constraintStart_toEndOf="@+id/select"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_bias="0.012"
-            app:layout_constraintVertical_bias="0.01"/>
+            app:layout_constraintVertical_bias="0.01"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
 <!--    <Button-->
 <!--            android:text="@string/convert"-->
 <!--            android:layout_width="108dp"-->
@@ -38,19 +39,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/file"
             android:textSize="24sp"
-            app:layout_constraintTop_toBottomOf="@+id/select" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/select" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.045"
-            app:layout_constraintVertical_bias="0.043"/>
-    <TextView
-            android:text=""
-            android:layout_width="270dp"
-            android:layout_height="35dp" android:id="@+id/name"
-            app:layout_constraintStart_toEndOf="@id/file"
-            app:layout_constraintTop_toBottomOf="@+id/open"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" android:textSize="24sp"
-            app:layout_constraintHorizontal_bias="1.0" app:layout_constraintVertical_bias="0.022"/>
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.044"
+            app:layout_constraintVertical_bias="0.024"/>
     <TextView
             android:layout_width="56dp"
             android:layout_height="49dp"
@@ -59,7 +51,7 @@
             app:layout_constraintTop_toBottomOf="@+id/file"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintHorizontal_bias="0.046" app:layout_constraintVertical_bias="0.035"
+            app:layout_constraintHorizontal_bias="0.04" app:layout_constraintVertical_bias="0.036"
             android:hint="@string/now_speed" android:autofillHints="1.0" android:textColorHint="#8D6E63"
             android:textSize="24sp" android:gravity="center"/>
     <TextView
@@ -75,10 +67,10 @@
             android:text="@string/open_float"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/open_float"
-            app:layout_constraintTop_toBottomOf="@id/file" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/speed" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.052"
-            app:layout_constraintVertical_bias="0.122"/>
+            app:layout_constraintHorizontal_bias="0.043"
+            app:layout_constraintVertical_bias="0.004"/>
     <Button
             android:text="@string/_0__1"
             android:layout_width="76dp"
@@ -87,7 +79,7 @@
             app:layout_constraintTop_toBottomOf="@+id/file"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintVertical_bias="0.038"/>
+            app:layout_constraintVertical_bias="0.038" style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"/>
     <Button
             android:text="@string/_0_1"
             android:layout_width="81dp"
@@ -96,6 +88,6 @@
             app:layout_constraintTop_toBottomOf="@+id/file"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintVertical_bias="0.038"/>
+            app:layout_constraintVertical_bias="0.038" style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
