@@ -91,6 +91,30 @@ class Midi {
         }
         return count.toFloat() / all
     }
+
+    fun convert(): String {
+        var res = String()
+        var cache = String()
+        for (e in this.events.iterator()) {
+            when (e.delay) {
+                0L -> cache += "${e.press} "
+                else -> {
+                    if (cache.isEmpty()) {
+                        cache += "${e.press} "
+                    } else {
+                        res += if (cache.length > 1) {
+                            "[$cache] "
+                        } else {
+                            "$cache "
+                        }
+                        cache = ""
+                    }
+                }
+            }
+        }
+        return res
+    }
+
 }
 
 class Event(val press: Int, val delay: Long)

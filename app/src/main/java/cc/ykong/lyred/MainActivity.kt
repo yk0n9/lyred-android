@@ -1,12 +1,8 @@
 package cc.ykong.lyred
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.os.Bundle
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.Switch
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.lzf.easyfloat.EasyFloat
 import com.lzf.easyfloat.enums.ShowPattern
@@ -27,8 +23,8 @@ object Control {
 class MainActivity : AppCompatActivity() {
 
     val midi: Midi = Midi()
-    var offset: Int = 0
-    val format = DecimalFormat("0.#")
+    private var offset: Int = 0
+    private val format = DecimalFormat("0.#")
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,6 +38,7 @@ class MainActivity : AppCompatActivity() {
         val up = findViewById<Button>(R.id.up)
         val down = findViewById<Button>(R.id.down)
         val reset = findViewById<Button>(R.id.reset)
+        val convert = findViewById<Button>(R.id.convert)
         this.format.roundingMode = RoundingMode.FLOOR
         findViewById<Button>(R.id.open).setOnClickListener {
             open(fileName, hit)
@@ -136,6 +133,9 @@ class MainActivity : AppCompatActivity() {
 
                 false -> EasyFloat.dismiss("play", true)
             }
+        }
+        convert.setOnClickListener {
+
         }
     }
 
