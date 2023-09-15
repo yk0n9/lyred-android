@@ -67,10 +67,10 @@
             android:text="@string/open_float"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/open_float"
-            app:layout_constraintTop_toBottomOf="@id/speed" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/down" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.043"
-            app:layout_constraintVertical_bias="0.004"/>
+            app:layout_constraintHorizontal_bias="0.042"
+            app:layout_constraintVertical_bias="0.0"/>
     <Button
             android:text="@string/_0__1"
             android:layout_width="76dp"
@@ -89,5 +89,39 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintVertical_bias="0.038" style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"/>
+    <Button
+            android:text="@string/up"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/up"
+            app:layout_constraintTop_toBottomOf="@id/hit" app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="0.041" app:layout_constraintVertical_bias="0.017"
+            style="@style/Widget.Material3.Button.OutlinedButton.Icon"/>
+    <Button
+            android:text="@string/down"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/down"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/up"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.041"
+            app:layout_constraintVertical_bias="0.0" style="@style/Widget.Material3.Button.OutlinedButton.Icon"/>
+    <TextView
+            android:text="@string/hit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/hit"
+            app:layout_constraintTop_toBottomOf="@id/speed" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.038"
+            app:layout_constraintVertical_bias="0.017" android:textSize="24sp"/>
+    <Button
+            android:text="@string/reset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/reset"
+            app:layout_constraintTop_toBottomOf="@id/speed" android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="208dp" android:layout_marginStart="3dp"
+            app:layout_constraintStart_toEndOf="@id/hit" app:layout_constraintHorizontal_bias="0.0"
+            style="@style/Widget.Material3.Button.IconButton.Outlined"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

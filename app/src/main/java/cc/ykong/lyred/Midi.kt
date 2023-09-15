@@ -8,12 +8,18 @@ import java.io.File
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
+val MAP: List<Int> = listOf(
+    24, 26, 28, 29, 31, 33, 35, 36, 38, 40, 41, 43, 45, 47, 48, 50, 52, 53, 55, 57, 59, 60, 62, 64,
+    65, 67, 69, 71, 72, 74, 76, 77, 79, 81, 83, 84, 86, 88, 89, 91, 93, 95
+)
+
 object Pool {
     val pool: ExecutorService = Executors.newFixedThreadPool(1)
 }
 
 class Midi {
     var events: ArrayList<Event> = ArrayList()
+    var hit_rate: Float = 0.0F
 
     fun init(file: File) {
         val smf = MidiSystem.getSequence(file)
@@ -42,7 +48,7 @@ class Midi {
         this.events = result
     }
 
-    fun play() {
+    fun play(offset: Int) {
         val events = this.events.toList()
         Pool.pool.execute {
             Control.playing = true
@@ -65,7 +71,7 @@ class Midi {
                 }
 
                 when (Control.is_play) {
-                    true -> press(e.press)
+                    true -> press(e.press + offset)
                     false -> break
                 }
             }
@@ -73,6 +79,17 @@ class Midi {
             Control.playing = false
             Control.is_play = false
         }
+    }
+
+    fun detect(offset: Int): Float {
+        val all = this.events.size.toFloat()
+        var count = 0
+        this.events.forEach {
+            if (MAP.contains(it.press + offset)) {
+                count++
+            }
+        }
+        return count.toFloat() / all
     }
 }
 

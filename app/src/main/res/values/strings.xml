@@ -18,4 +18,8 @@
     <string name="accessibility_service_label">lyred点击服务</string>
     <string name="_0_1">+0.1</string>
     <string name="_0__1">-0.1</string>
+    <string name="up">向上调音</string>
+    <string name="down">向下调音</string>
+    <string name="hit">命中率</string>
+    <string name="reset">还原</string>
 </resources>

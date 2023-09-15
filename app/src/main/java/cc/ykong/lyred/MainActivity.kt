@@ -12,6 +12,8 @@ import com.lzf.easyfloat.EasyFloat
 import com.lzf.easyfloat.enums.ShowPattern
 import com.obsez.android.lib.filechooser.ChooserDialog
 import java.math.BigDecimal
+import java.math.RoundingMode
+import java.text.DecimalFormat
 
 object Control {
     var speed: Double = 1.0
@@ -25,7 +27,10 @@ object Control {
 class MainActivity : AppCompatActivity() {
 
     val midi: Midi = Midi()
+    var offset: Int = 0
+    val format = DecimalFormat("0.#")
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -33,18 +38,35 @@ class MainActivity : AppCompatActivity() {
         val div = findViewById<Button>(R.id.div)
         val add = findViewById<Button>(R.id.add)
         val speed = findViewById<TextView>(R.id.speed)
+        val hit = findViewById<TextView>(R.id.hit)
+        val up = findViewById<Button>(R.id.up)
+        val down = findViewById<Button>(R.id.down)
+        val reset = findViewById<Button>(R.id.reset)
+        this.format.roundingMode = RoundingMode.FLOOR
         findViewById<Button>(R.id.open).setOnClickListener {
-            open(midi, fileName, this)
+            open(fileName, hit)
         }
         div.setOnClickListener {
             if (Control.speed > 0.1) {
                 Control.speed = BigDecimal(Control.speed).subtract(BigDecimal(0.1)).toDouble()
-                speed.text = Control.speed.toString()
+                speed.text = this.format.format(Control.speed)
             }
         }
         add.setOnClickListener {
             Control.speed = BigDecimal(Control.speed).add(BigDecimal(0.1)).toDouble()
-            speed.text = Control.speed.toString()
+            speed.text = this.format.format(Control.speed)
+        }
+        up.setOnClickListener {
+            this.offset++
+            setHit(hit)
+        }
+        down.setOnClickListener {
+            this.offset--
+            setHit(hit)
+        }
+        reset.setOnClickListener {
+            this.offset = 0
+            setHit(hit)
         }
 
         findViewById<CheckBox>(R.id.open_float).setOnCheckedChangeListener { _, b ->
@@ -67,7 +89,7 @@ class MainActivity : AppCompatActivity() {
                                     play.text = "暂停"
                                     if (!Control.playing) {
                                         Control.is_play = true
-                                        midi.play()
+                                        midi.play(this.offset)
                                     }
                                 }
                             }
@@ -105,7 +127,7 @@ class MainActivity : AppCompatActivity() {
                             }
                             it.findViewById<Button>(R.id.open_f).setOnClickListener {
                                 play.text = "播放"
-                                open(midi, fileName, this)
+                                open(fileName, hit)
                             }
                         }
                         .setShowPattern(ShowPattern.ALL_TIME)
@@ -116,14 +138,23 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+    @SuppressLint("SetTextI18n")
+    fun open(text: TextView, hit: TextView) {
+        Control.is_play = false
+        Control.pause = false
+        ChooserDialog(this).withFilter(false, false, "mid").withChosenListener { _, dirFile ->
+            this.midi.init(dirFile)
+            this.offset = 0
+            text.text = "你选择的是: " + dirFile.name
+            setHit(hit)
+        }.build().show()
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun setHit(hit: TextView) {
+        hit.text =
+            "偏移量: " + this.offset + " - " + "命中率: " + this.format.format(this.midi.detect(this.offset) * 100) + "%"
+    }
 }
 
-@SuppressLint("SetTextI18n")
-fun open(midi: Midi, text: TextView, context: Context) {
-    Control.is_play = false
-    Control.pause = false
-    ChooserDialog(context).withFilter(false, false, "mid").withChosenListener { _, dirFile ->
-        midi.init(dirFile)
-        text.text = "你选择的是: " + dirFile.name
-    }.build().show()
-}
