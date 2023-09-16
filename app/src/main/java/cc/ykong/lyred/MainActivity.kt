@@ -1,7 +1,6 @@
 package cc.ykong.lyred
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.os.Bundle
 import android.widget.Button
 import android.widget.CheckBox
