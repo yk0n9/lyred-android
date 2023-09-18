@@ -19,7 +19,28 @@ object Pool {
 
 class Midi {
     var events: ArrayList<Event> = ArrayList()
-    var hit_rate: Float = 0.0F
+    var offset = 0
+
+    private val playback = sequence {
+        var startTime = System.currentTimeMillis()
+        var inputTime = 0L
+        for (e in events) {
+            if (Control.pause) {
+                while (Control.pause) {
+                }
+                inputTime = e.delay
+                startTime = System.currentTimeMillis()
+            }
+
+            inputTime += (e.delay / Control.speed).toLong()
+            val currentTime = inputTime - (System.currentTimeMillis() - startTime)
+
+            if (currentTime > 0) {
+                Thread.sleep(currentTime)
+            }
+            yield(e.press + offset)
+        }
+    }
 
     fun init(file: File) {
         val smf = MidiSystem.getSequence(file)
@@ -48,34 +69,15 @@ class Midi {
         this.events = result
     }
 
-    fun play(offset: Int) {
-        val events = this.events.toList()
+    fun play() {
+        Control.playing = true
         Pool.pool.execute {
-            Control.playing = true
-            var startTime = System.currentTimeMillis()
-            var inputTime = 0L
-
-            for (e in events) {
-                if (Control.pause) {
-                    while (Control.pause) {
-                    }
-                    inputTime = e.delay
-                    startTime = System.currentTimeMillis()
-                }
-
-                inputTime += (e.delay / Control.speed).toLong()
-                val currentTime = inputTime - (System.currentTimeMillis() - startTime)
-
-                if (currentTime > 0) {
-                    Thread.sleep(currentTime)
-                }
-
+            for (i in playback) {
                 when (Control.is_play) {
-                    true -> press(e.press + offset)
+                    true -> press(i)
                     false -> break
                 }
             }
-
             Control.playing = false
             Control.is_play = false
         }
