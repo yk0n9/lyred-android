@@ -26,8 +26,7 @@ object Control {
 class MainActivity : AppCompatActivity() {
 
     val midi: Midi = Midi()
-    var offset: Int = 0
-    val format = DecimalFormat("0.#")
+    private val format = DecimalFormat("0.#")
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,15 +55,15 @@ class MainActivity : AppCompatActivity() {
             speed.text = this.format.format(Control.speed)
         }
         up.setOnClickListener {
-            this.offset++
+            this.midi.offset++
             setHit(hit)
         }
         down.setOnClickListener {
-            this.offset--
+            this.midi.offset--
             setHit(hit)
         }
         reset.setOnClickListener {
-            this.offset = 0
+            this.midi.offset = 0
             setHit(hit)
         }
 
@@ -88,7 +87,7 @@ class MainActivity : AppCompatActivity() {
                                     play.text = "暂停"
                                     if (!Control.playing) {
                                         Control.is_play = true
-                                        midi.play(this.offset)
+                                        midi.play()
                                     }
                                 }
                             }
@@ -144,7 +143,7 @@ class MainActivity : AppCompatActivity() {
         Control.pause = false
         ChooserDialog(this).withFilter(false, false, "mid").withChosenListener { _, dirFile ->
             this.midi.init(dirFile)
-            this.offset = 0
+            this.midi.offset = 0
             text.text = "你选择的是: " + dirFile.name
             setHit(hit)
         }.build().show()
@@ -153,7 +152,7 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     private fun setHit(hit: TextView) {
         hit.text =
-            "偏移量: " + this.offset + " - " + "命中率: " + this.format.format(this.midi.detect(this.offset) * 100) + "%"
+            "偏移量: " + this.midi.offset + " - " + "命中率: " + this.format.format(this.midi.detect(this.midi.offset) * 100) + "%"
     }
 }
 
