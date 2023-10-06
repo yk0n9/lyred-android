@@ -6,10 +6,12 @@ import android.widget.Button
 import android.widget.CheckBox
 import android.widget.Switch
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.lzf.easyfloat.EasyFloat
 import com.lzf.easyfloat.enums.ShowPattern
 import com.obsez.android.lib.filechooser.ChooserDialog
+import java.io.File
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.text.DecimalFormat
@@ -135,6 +137,19 @@ class MainActivity : AppCompatActivity() {
                 false -> EasyFloat.dismiss("play", true)
             }
         }
+
+        val data = intent?.data
+        if (intent?.type == "audio/midi") {
+            val path = data?.path
+            if (path != null) {
+                val name = path.substring(path.lastIndexOf('/') + 1)
+                contentResolver.openInputStream(data)?.let { this.midi.init(it) }
+                this.midi.offset = 0
+                fileName.text = "你选择的是: $name"
+                setHit(hit)
+                Toast.makeText(this, "Midi: $name", Toast.LENGTH_LONG).show()
+            }
+        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -142,7 +157,7 @@ class MainActivity : AppCompatActivity() {
         Control.is_play = false
         Control.pause = false
         ChooserDialog(this).withFilter(false, false, "mid").withChosenListener { _, dirFile ->
-            this.midi.init(dirFile)
+            this.midi.init(dirFile.inputStream())
             this.midi.offset = 0
             text.text = "你选择的是: " + dirFile.name
             setHit(hit)

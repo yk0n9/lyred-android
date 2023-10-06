@@ -11,7 +11,6 @@ class Clicker : AccessibilityService() {
     override fun onInterrupt() {}
     override fun onServiceConnected() {
         super.onServiceConnected()
-        Log.d("service", "connected")
         service = this
     }
 }

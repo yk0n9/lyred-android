@@ -24,7 +24,7 @@ object Map {
         service?.dispatchGesture(
             GestureDescription
                 .Builder()
-                .addStroke(GestureDescription.StrokeDescription(path, 0, 50))
+                .addStroke(GestureDescription.StrokeDescription(path, 0, 10))
                 .build(),
             null,
             null

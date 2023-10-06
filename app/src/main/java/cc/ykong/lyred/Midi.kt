@@ -5,6 +5,7 @@ import libmidi.midi.MidiSystem
 import libmidi.midi.ShortMessage
 import libmidi.sound.MidiUtils
 import java.io.File
+import java.io.InputStream
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
@@ -42,7 +43,7 @@ class Midi {
         }
     }
 
-    fun init(file: File) {
+    fun init(file: InputStream) {
         val smf = MidiSystem.getSequence(file)
         val events = ArrayList<MidiEvent>()
         for (track in smf.tracks) {
@@ -67,6 +68,7 @@ class Midi {
             }
         }
         this.events = result
+        file.close()
     }
 
     fun play() {
