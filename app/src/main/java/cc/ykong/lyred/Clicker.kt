@@ -1,7 +1,6 @@
 package cc.ykong.lyred
 
 import android.accessibilityservice.AccessibilityService
-import android.util.Log
 import android.view.accessibility.AccessibilityEvent
 
 var service: Clicker? = null

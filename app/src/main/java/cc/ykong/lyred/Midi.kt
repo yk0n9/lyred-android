@@ -4,7 +4,6 @@ import libmidi.midi.MidiEvent
 import libmidi.midi.MidiSystem
 import libmidi.midi.ShortMessage
 import libmidi.sound.MidiUtils
-import java.io.File
 import java.io.InputStream
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors

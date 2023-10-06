@@ -2,16 +2,11 @@ package cc.ykong.lyred
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.Switch
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.lzf.easyfloat.EasyFloat
 import com.lzf.easyfloat.enums.ShowPattern
 import com.obsez.android.lib.filechooser.ChooserDialog
-import java.io.File
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.text.DecimalFormat
