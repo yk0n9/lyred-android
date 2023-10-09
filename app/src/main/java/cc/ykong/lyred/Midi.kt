@@ -1,5 +1,6 @@
 package cc.ykong.lyred
 
+import android.widget.Button
 import libmidi.midi.MidiEvent
 import libmidi.midi.MidiSystem
 import libmidi.midi.ShortMessage
@@ -20,27 +21,6 @@ object Pool {
 class Midi {
     var events: ArrayList<Event> = ArrayList()
     var offset = 0
-
-    private val playback = sequence {
-        var startTime = System.currentTimeMillis()
-        var inputTime = 0L
-        for (e in events) {
-            if (Control.pause) {
-                while (Control.pause) {
-                }
-                inputTime = e.delay
-                startTime = System.currentTimeMillis()
-            }
-
-            inputTime += (e.delay / Control.speed).toLong()
-            val currentTime = inputTime - (System.currentTimeMillis() - startTime)
-
-            if (currentTime > 0) {
-                Thread.sleep(currentTime)
-            }
-            yield(e.press + offset)
-        }
-    }
 
     fun init(file: InputStream) {
         val smf = MidiSystem.getSequence(file)
@@ -70,17 +50,34 @@ class Midi {
         file.close()
     }
 
-    fun play() {
+    fun play(btn: Button) {
         Control.playing = true
         Pool.pool.execute {
-            for (i in playback) {
+            var startTime = System.currentTimeMillis()
+            var inputTime = 0L
+            for (e in events) {
+                if (Control.pause) {
+                    while (Control.pause) {}
+                    inputTime = e.delay
+                    startTime = System.currentTimeMillis()
+                }
+
+                inputTime += (e.delay / Control.speed).toLong()
+                val currentTime = inputTime - (System.currentTimeMillis() - startTime)
+
+                if (currentTime > 0) {
+                    Thread.sleep(currentTime)
+                }
                 when (Control.is_play) {
-                    true -> press(i)
+                    true -> press(e.press + offset)
                     false -> break
                 }
             }
             Control.playing = false
             Control.is_play = false
+            btn.post {
+                btn.text = "播放"
+            }
         }
     }
 

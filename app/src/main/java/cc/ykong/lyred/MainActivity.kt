@@ -125,7 +125,7 @@ class MainActivity : AppCompatActivity() {
                         play.text = "暂停"
                         if (!Control.playing) {
                             Control.is_play = true
-                            midi.play()
+                            midi.play(play)
                         }
                     }
                 }
