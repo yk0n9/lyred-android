@@ -31,39 +31,14 @@ object Map {
         )
     }
 
-    var mapping = mutableMapOf(
-        1 to zero(),
-        2 to zero(),
-        3 to zero(),
-        4 to zero(),
-        5 to zero(),
-        6 to zero(),
-        7 to zero(),
-        8 to zero(),
-        9 to zero(),
-        10 to zero(),
-        11 to zero(),
-        12 to zero(),
-        13 to zero(),
-        14 to zero(),
-        15 to zero(),
-        16 to zero(),
-        17 to zero(),
-        18 to zero(),
-        19 to zero(),
-        20 to zero(),
-        21 to zero(),
-    )
+    var mapping = mutableMapOf<Int, Pos>()
 }
 
 @Serializable
 data class Pos(var x: Float, var y: Float)
 
-fun zero() = Pos(0f, 0f)
-
 fun setMap(i: Int, event: MotionEvent) {
-    Map.mapping[i]?.x = event.rawX
-    Map.mapping[i]?.y = event.rawY
+    Map.mapping[i] = Pos(event.rawX, event.rawY)
 }
 
 @SuppressLint("SdCardPath")
@@ -96,48 +71,48 @@ fun saveLocation() {
 
 fun press(key: Int) {
     when (key) {
-        24 -> Map.mapping[15]?.let { Map.click(it) }
-        26 -> Map.mapping[16]?.let { Map.click(it) }
-        28 -> Map.mapping[17]?.let { Map.click(it) }
-        29 -> Map.mapping[18]?.let { Map.click(it) }
-        31 -> Map.mapping[19]?.let { Map.click(it) }
-        33 -> Map.mapping[20]?.let { Map.click(it) }
-        35 -> Map.mapping[21]?.let { Map.click(it) }
-        36 -> Map.mapping[15]?.let { Map.click(it) }
-        38 -> Map.mapping[16]?.let { Map.click(it) }
-        40 -> Map.mapping[17]?.let { Map.click(it) }
-        41 -> Map.mapping[18]?.let { Map.click(it) }
-        43 -> Map.mapping[19]?.let { Map.click(it) }
-        45 -> Map.mapping[20]?.let { Map.click(it) }
-        47 -> Map.mapping[21]?.let { Map.click(it) }
-        48 -> Map.mapping[15]?.let { Map.click(it) }
-        50 -> Map.mapping[16]?.let { Map.click(it) }
-        52 -> Map.mapping[17]?.let { Map.click(it) }
-        53 -> Map.mapping[18]?.let { Map.click(it) }
-        55 -> Map.mapping[19]?.let { Map.click(it) }
-        57 -> Map.mapping[20]?.let { Map.click(it) }
-        59 -> Map.mapping[21]?.let { Map.click(it) }
-        60 -> Map.mapping[8]?.let { Map.click(it) }
-        62 -> Map.mapping[9]?.let { Map.click(it) }
-        64 -> Map.mapping[10]?.let { Map.click(it) }
-        65 -> Map.mapping[11]?.let { Map.click(it) }
-        67 -> Map.mapping[12]?.let { Map.click(it) }
-        69 -> Map.mapping[13]?.let { Map.click(it) }
-        71 -> Map.mapping[14]?.let { Map.click(it) }
-        72 -> Map.mapping[1]?.let { Map.click(it) }
-        74 -> Map.mapping[2]?.let { Map.click(it) }
-        76 -> Map.mapping[3]?.let { Map.click(it) }
-        77 -> Map.mapping[4]?.let { Map.click(it) }
-        79 -> Map.mapping[5]?.let { Map.click(it) }
-        81 -> Map.mapping[6]?.let { Map.click(it) }
-        83 -> Map.mapping[7]?.let { Map.click(it) }
-        84 -> Map.mapping[1]?.let { Map.click(it) }
-        86 -> Map.mapping[2]?.let { Map.click(it) }
-        88 -> Map.mapping[3]?.let { Map.click(it) }
-        89 -> Map.mapping[4]?.let { Map.click(it) }
-        91 -> Map.mapping[5]?.let { Map.click(it) }
-        93 -> Map.mapping[6]?.let { Map.click(it) }
-        95 -> Map.mapping[7]?.let { Map.click(it) }
+        24 -> Map.click(Map.mapping[15]!!)
+        26 -> Map.click(Map.mapping[16]!!)
+        28 -> Map.click(Map.mapping[17]!!)
+        29 -> Map.click(Map.mapping[18]!!)
+        31 -> Map.click(Map.mapping[19]!!)
+        33 -> Map.click(Map.mapping[20]!!)
+        35 -> Map.click(Map.mapping[21]!!)
+        36 -> Map.click(Map.mapping[15]!!)
+        38 -> Map.click(Map.mapping[16]!!)
+        40 -> Map.click(Map.mapping[17]!!)
+        41 -> Map.click(Map.mapping[18]!!)
+        43 -> Map.click(Map.mapping[19]!!)
+        45 -> Map.click(Map.mapping[20]!!)
+        47 -> Map.click(Map.mapping[21]!!)
+        48 -> Map.click(Map.mapping[15]!!)
+        50 -> Map.click(Map.mapping[16]!!)
+        52 -> Map.click(Map.mapping[17]!!)
+        53 -> Map.click(Map.mapping[18]!!)
+        55 -> Map.click(Map.mapping[19]!!)
+        57 -> Map.click(Map.mapping[20]!!)
+        59 -> Map.click(Map.mapping[21]!!)
+        60 -> Map.click(Map.mapping[8]!!)
+        62 -> Map.click(Map.mapping[9]!!)
+        64 -> Map.click(Map.mapping[10]!!)
+        65 -> Map.click(Map.mapping[11]!!)
+        67 -> Map.click(Map.mapping[12]!!)
+        69 -> Map.click(Map.mapping[13]!!)
+        71 -> Map.click(Map.mapping[14]!!)
+        72 -> Map.click(Map.mapping[1]!!)
+        74 -> Map.click(Map.mapping[2]!!)
+        76 -> Map.click(Map.mapping[3]!!)
+        77 -> Map.click(Map.mapping[4]!!)
+        79 -> Map.click(Map.mapping[5]!!)
+        81 -> Map.click(Map.mapping[6]!!)
+        83 -> Map.click(Map.mapping[7]!!)
+        84 -> Map.click(Map.mapping[1]!!)
+        86 -> Map.click(Map.mapping[2]!!)
+        88 -> Map.click(Map.mapping[3]!!)
+        89 -> Map.click(Map.mapping[4]!!)
+        91 -> Map.click(Map.mapping[5]!!)
+        93 -> Map.click(Map.mapping[6]!!)
+        95 -> Map.click(Map.mapping[7]!!)
     }
 }
 
