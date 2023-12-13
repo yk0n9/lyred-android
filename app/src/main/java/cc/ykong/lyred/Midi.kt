@@ -25,9 +25,9 @@ class Midi {
     fun init(file: InputStream) {
         val smf = MidiSystem.getSequence(file)
         val events = ArrayList<MidiEvent>()
-        for (track in smf.tracks) {
-            for (i in 0 until track.size()) {
-                val e = track.get(i)
+        smf.tracks.forEach {
+            for (i in 0 until it.size()) {
+                val e = it.get(i)
                 events.add(e)
             }
         }
@@ -36,13 +36,13 @@ class Midi {
         var tempo = MidiUtils.DEFAULT_TEMPO_MPQ
         var tick = 0L
         val result = ArrayList<Event>()
-        for (e in events) {
-            if (MidiUtils.isMetaTempo(e.message)) {
-                tempo = MidiUtils.getTempoMPQ(e.message)
-            } else if (e.message is ShortMessage && (e.message as ShortMessage).command == ShortMessage.NOTE_ON) {
-                val press = (e.message as ShortMessage).data1
-                val delay = MidiUtils.ticks2microsec(e.tick - tick, tempo.toDouble(), smf.resolution) / 1000
-                tick = e.tick
+        events.forEach {
+            if (MidiUtils.isMetaTempo(it.message)) {
+                tempo = MidiUtils.getTempoMPQ(it.message)
+            } else if (it.message is ShortMessage && (it.message as ShortMessage).command == ShortMessage.NOTE_ON) {
+                val press = (it.message as ShortMessage).data1
+                val delay = MidiUtils.ticks2microsec(it.tick - tick, tempo.toDouble(), smf.resolution) / 1000
+                tick = it.tick
                 result.add(Event(press, delay))
             }
         }
@@ -55,27 +55,29 @@ class Midi {
         Pool.pool.execute {
             var startTime = System.currentTimeMillis()
             var inputTime = 0L
-            for (e in events) {
-                inputTime += (e.delay / Control.speed).toLong()
+            events.forEach {
+                inputTime += (it.delay / Control.speed).toLong()
                 val currentTime = inputTime - (System.currentTimeMillis() - startTime)
 
                 if (currentTime > 0) {
                     Thread.sleep(currentTime)
                 }
                 when (Control.state) {
-                    Playing -> press(e.press + offset)
+                    Playing -> press(it.press + offset)
                     Pause -> {
                         while (Control.state == Pause) {
                         }
-                        inputTime = e.delay
+                        inputTime = it.delay
                         startTime = System.currentTimeMillis()
                     }
 
-                    Stop -> break
+                    Stop -> {
+                        Control.state = Stop
+                        btn.post { btn.text = "播放" }
+                        return@execute
+                    }
                 }
             }
-            Control.state = Stop
-            btn.post { btn.text = "播放" }
         }
     }
 
