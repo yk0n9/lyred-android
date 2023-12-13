@@ -51,33 +51,31 @@ class Midi {
     }
 
     fun play(btn: Button) {
-        Control.playing = true
+        val events = this.events.toList()
         Pool.pool.execute {
             var startTime = System.currentTimeMillis()
             var inputTime = 0L
             for (e in events) {
-                if (Control.pause) {
-                    while (Control.pause) {}
-                    inputTime = e.delay
-                    startTime = System.currentTimeMillis()
-                }
-
                 inputTime += (e.delay / Control.speed).toLong()
                 val currentTime = inputTime - (System.currentTimeMillis() - startTime)
 
                 if (currentTime > 0) {
                     Thread.sleep(currentTime)
                 }
-                when (Control.is_play) {
-                    true -> press(e.press + offset)
-                    false -> break
+                when (Control.state) {
+                    Playing -> press(e.press + offset)
+                    Pause -> {
+                        while (Control.state == Pause) {
+                        }
+                        inputTime = e.delay
+                        startTime = System.currentTimeMillis()
+                    }
+
+                    Stop -> break
                 }
             }
-            Control.playing = false
-            Control.is_play = false
-            btn.post {
-                btn.text = "播放"
-            }
+            Control.state = Stop
+            btn.post { btn.text = "播放" }
         }
     }
 
