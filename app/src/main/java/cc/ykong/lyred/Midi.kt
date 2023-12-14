@@ -65,19 +65,19 @@ class Midi {
                 when (Control.state) {
                     Playing -> press(it.press + offset)
                     Pause -> {
-                        while (Control.state == Pause) {
-                        }
+                        while (Control.state == Pause) {}
                         inputTime = it.delay
                         startTime = System.currentTimeMillis()
                     }
 
                     Stop -> {
-                        Control.state = Stop
                         btn.post { btn.text = "播放" }
                         return@execute
                     }
                 }
             }
+            Control.state = Stop
+            btn.post { btn.text = "播放" }
         }
     }
 
