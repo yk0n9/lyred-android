@@ -178,9 +178,8 @@ class MainActivity : AppCompatActivity() {
                     saveLocation()
                     save.text = "保存成功"
                 }
-                it.findViewById<Button>(R.id.open_f).setOnClickListener {
-                    play.text = "播放"
-                    open()
+                it.findViewById<Button>(R.id.convert).setOnClickListener {
+                    convert(this, this.midi.events.toList())
                 }
             }
             .setShowPattern(ShowPattern.ALL_TIME)
