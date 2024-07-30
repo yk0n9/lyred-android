@@ -1,5 +1,6 @@
 package cc.ykong.lyred
 
+import android.annotation.SuppressLint
 import android.widget.Button
 import libmidi.midi.MidiEvent
 import libmidi.midi.MidiSystem
@@ -50,6 +51,7 @@ class Midi {
         file.close()
     }
 
+    @SuppressLint("SetTextI18n")
     fun play(btn: Button) {
         val events = this.events.toList()
         Pool.pool.execute {
@@ -69,7 +71,6 @@ class Midi {
                         inputTime = it.delay
                         startTime = System.currentTimeMillis()
                     }
-
                     Stop -> {
                         btn.post { btn.text = "播放" }
                         return@execute

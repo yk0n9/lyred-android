@@ -119,6 +119,7 @@ class MainActivity : AppCompatActivity() {
             "偏移量: " + this.midi.offset + " - " + "命中率: " + this.format.format(this.midi.detect(this.midi.offset) * 100) + "%"
     }
 
+    @SuppressLint("SetTextI18n")
     private fun createFloat() {
         EasyFloat.with(this)
             .setTag("play")

@@ -21,10 +21,11 @@ object Map {
 
     fun click(it: Pos) {
         path.moveTo(it.x, it.y)
+        path.lineTo(it.x, it.y)
         service?.dispatchGesture(
             GestureDescription
                 .Builder()
-                .addStroke(GestureDescription.StrokeDescription(path, 0, 10))
+                .addStroke(GestureDescription.StrokeDescription(path, 0, 1))
                 .build(),
             null,
             null
@@ -116,7 +117,7 @@ fun press(key: Int) {
     }
 }
 
-@SuppressLint("ClickableViewAccessibility", "UseSwitchCompatOrMaterialCode")
+@SuppressLint("ClickableViewAccessibility", "UseSwitchCompatOrMaterialCode", "SetTextI18n")
 fun createLocation(context: Context, tag: String) {
     EasyFloat.with(context)
         .setTag(tag)
@@ -134,102 +135,82 @@ fun createLocation(context: Context, tag: String) {
                                         setMap(1, motionEvent)
                                         show?.text = "正在设置+2"
                                     }
-
                                     2 -> {
                                         setMap(2, motionEvent)
                                         show?.text = "正在设置+3"
                                     }
-
                                     3 -> {
                                         setMap(3, motionEvent)
                                         show?.text = "正在设置+4"
                                     }
-
                                     4 -> {
                                         setMap(4, motionEvent)
                                         show?.text = "正在设置+5"
                                     }
-
                                     5 -> {
                                         setMap(5, motionEvent)
                                         show?.text = "正在设置+6"
                                     }
-
                                     6 -> {
                                         setMap(6, motionEvent)
                                         show?.text = "正在设置+7"
                                     }
-
                                     7 -> {
                                         setMap(7, motionEvent)
                                         show?.text = "正在设置1"
                                     }
-
                                     8 -> {
                                         setMap(8, motionEvent)
                                         show?.text = "正在设置2"
                                     }
-
                                     9 -> {
                                         setMap(9, motionEvent)
                                         show?.text = "正在设置3"
                                     }
-
                                     10 -> {
                                         setMap(10, motionEvent)
                                         show?.text = "正在设置4"
                                     }
-
                                     11 -> {
                                         setMap(11, motionEvent)
                                         show?.text = "正在设置5"
                                     }
-
                                     12 -> {
                                         setMap(12, motionEvent)
                                         show?.text = "正在设置6"
                                     }
-
                                     13 -> {
                                         setMap(13, motionEvent)
                                         show?.text = "正在设置7"
                                     }
-
                                     14 -> {
                                         setMap(14, motionEvent)
                                         show?.text = "正在设置-1"
                                     }
-
                                     15 -> {
                                         setMap(15, motionEvent)
                                         show?.text = "正在设置-2"
                                     }
-
                                     16 -> {
                                         setMap(16, motionEvent)
                                         show?.text = "正在设置-3"
                                     }
-
                                     17 -> {
                                         setMap(17, motionEvent)
                                         show?.text = "正在设置-4"
                                     }
-
                                     18 -> {
                                         setMap(18, motionEvent)
                                         show?.text = "正在设置-5"
                                     }
-
                                     19 -> {
                                         setMap(19, motionEvent)
                                         show?.text = "正在设置-6"
                                     }
-
                                     20 -> {
                                         setMap(20, motionEvent)
                                         show?.text = "正在设置-7"
                                     }
-
                                     21 -> {
                                         setMap(21, motionEvent)
                                         show?.isChecked = false
